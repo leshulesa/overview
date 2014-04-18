@@ -64,7 +64,7 @@ public class Overview4Money extends Activity {
     
     //**** CLASS ATTRIBUTES. ****
     //--------------------------------------------------------------------------------------------------------------------
-    /** Tag used for Log method calls. */
+    /** Tag used for Log method calls shown in LogCat window. */
     private static final String m_tag = "Overview4Money";
     
     /** Main menu buttons. Enter button allows us to enter income and expense. Money state will allow us to view the state of the money and
