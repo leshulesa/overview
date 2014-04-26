@@ -1,4 +1,4 @@
-package com.overview4money;
+package com.overview4money.gui;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import com.overview4money.R;
 
 public class Overview4Money extends Activity {
     //**** CLASS METHODS. ****
