@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Common string values. -->
     <string name="app_name">Overview4Money</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="ok">Ok</string>
+    <string name="back">Back</string>
     
     <!-- Text values for main menu buttons. -->
     <string name="enterincexp">Enter Income/Expense</string>
     <string name="moneystate">Money State</string>
     <string name="moneyover">Money Overview</string>
+    
+    <!-- Text values for Enter Income/Expense dialog. -->
+    
+    
 
 </resources>

@@ -1,14 +1,15 @@
 package com.overview4money.gui;
 
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import com.overview4money.R;
+import com.overview4money.gui.dialogs.EnterIncomeExpenseDialog;
 
-public class Overview4Money extends Activity {
+public class Overview4Money extends FragmentActivity {
     //**** CLASS METHODS. ****
     @Override protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class Overview4Money extends Activity {
     private void onButtonsClicked(View v) {
 	if(this.m_enterButton == v) {
 	    Log.i(m_tag, "onButtonsClicked() - Enter button");
+	    this.openIncomeExpenseDialog();
 	}
 	else if(this.m_moneyStateButton == v) {
 	    Log.i(m_tag, "onButtonsClicked() - Money state button");
@@ -60,13 +62,20 @@ public class Overview4Money extends Activity {
 	    Log.i(m_tag, "onButtonsClicked() - Money overview button");
 	}
     }
+    
+    
+    protected void openIncomeExpenseDialog() {
+	Log.d(m_tag, "openIncomeExpenseDialog()");
+	EnterIncomeExpenseDialog enterDialog = new EnterIncomeExpenseDialog();
+	enterDialog.show(this.getSupportFragmentManager(), "EnterIncomeExpenseDialog");
+    }
 
     
     
     //**** CLASS ATTRIBUTES. ****
     //--------------------------------------------------------------------------------------------------------------------
     /** Tag used for Log method calls shown in LogCat window. */
-    private static final String m_tag = "Overview4Money";
+    public static final String m_tag = "Overview4Money";
     
     /** Main menu buttons. Enter button allows us to enter income and expense. Money state will allow us to view the state of the money and
      money overview button will allow as to see all incomes and expense. */
