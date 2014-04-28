@@ -15,7 +15,8 @@
     <string name="moneyover">Money Overview</string>
     
     <!-- Text values for Enter Income/Expense dialog. -->
+    <string name="expense">Expense</string>
+    <string name="income">Income</string>
+    <string name="enterType">Type</string>
     
-    
-
 </resources>

@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import com.overview4money.R;
 import static com.overview4money.gui.Overview4Money.m_tag;
 
@@ -46,6 +48,14 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
 	this.m_backButton.setOnClickListener(onClickListener);
 	this.m_okButton.setOnClickListener(onClickListener);
 	
+	//**** Get radio buttons. No need for listeners. By default expense radio button will be selected. ****
+	this.m_expenseRadioButton = (RadioButton)dialogView.findViewById(R.id.expenseRadioButton);
+	this.m_incomeRadioButton = (RadioButton)dialogView.findViewById(R.id.incomeRadioButton);
+	this.m_expenseRadioButton.setChecked(true);
+	
+	TextView enterType = (TextView)dialogView.findViewById(R.id.enterTypeTV);
+	enterType.setText(enterType.getText() + ": ");
+	
 	return builder.create();
     }    
     
@@ -72,4 +82,6 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
     //-------------------------------------------------------------------------------------------------------------------------------------
     /** Dialog buttons. Ok button will be disabled until everything is entered. */
     private Button m_okButton, m_backButton;
+    /** Expense and income radio buttons. Both are added to the radio group. */
+    private RadioButton m_incomeRadioButton, m_expenseRadioButton;
 }
