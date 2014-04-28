@@ -50,7 +50,6 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
     }    
     
     
-    
     /**
      * Method will be called whenever user clicks on some buttons.
      * @param v Clicked button.
