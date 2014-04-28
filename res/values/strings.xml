@@ -18,5 +18,6 @@
     <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="enterType">Type</string>
+    <string name="enterDate">Date</string>
     
 </resources>

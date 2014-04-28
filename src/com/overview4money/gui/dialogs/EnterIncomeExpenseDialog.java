@@ -55,6 +55,8 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
 	
 	TextView enterType = (TextView)dialogView.findViewById(R.id.enterTypeTV);
 	enterType.setText(enterType.getText() + ": ");
+	TextView enterDate = (TextView)dialogView.findViewById(R.id.dateTV);
+	enterDate.setText(enterDate.getText() + ": ");
 	
 	return builder.create();
     }    
