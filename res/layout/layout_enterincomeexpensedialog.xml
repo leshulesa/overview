@@ -37,6 +37,24 @@ and open the template in the editor.
     <LinearLayout android:layout_width="match_parent"
 		  android:layout_height="match_parent"
 		  android:orientation="horizontal">
+	<TextView android:id="@+id/valueTextView"
+		  android:text="@string/enterValue"
+		  android:textStyle="bold"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:layout_gravity="center_horizontal|center_vertical"/>
+	
+	<EditText android:id="@+id/valueEditText"
+		  android:textAlignment="viewEnd"
+		  android:hint="@string/hintValueText"
+		  android:layout_width="fill_parent"
+		  android:layout_height="wrap_content"/>
+	
+    </LinearLayout>
+    
+    <LinearLayout android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:orientation="horizontal">
 	<TextView android:id="@+id/dateTV"
 		  android:text="@string/enterDate"
 		  android:textStyle="bold"

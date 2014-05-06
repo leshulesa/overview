@@ -19,5 +19,7 @@
     <string name="income">Income</string>
     <string name="enterType">Type</string>
     <string name="enterDate">Date</string>
+    <string name="enterValue">Value</string>
+    <string name="hintValueText">Enter value...</string>
     
 </resources>
