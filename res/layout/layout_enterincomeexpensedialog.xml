@@ -14,63 +14,75 @@ and open the template in the editor.
 	      android:paddingLeft="@dimen/activity_horizontal_margin"
 	      android:paddingRight="@dimen/activity_horizontal_margin"
 	      android:paddingTop="@dimen/activity_vertical_margin"
->    
-    <RadioGroup android:id="@+id/RadioGroup01"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-	<TextView android:id="@+id/enterTypeTV"
-		  android:text="@string/enterType"
-		  android:textStyle="bold"
-		  android:layout_width="wrap_content"
-		  android:layout_height="wrap_content"/>
-	<RadioButton android:text="@string/expense"
-		     android:id="@+id/expenseRadioButton"
-		     android:layout_width="wrap_content"
-		     android:layout_height="wrap_content" />
-	<RadioButton android:text="@string/income"
-		     android:id="@+id/incomeRadioButton"
-		     android:layout_width="wrap_content"
-		     android:layout_height="wrap_content" />
-    </RadioGroup>
+>
     
-    <LinearLayout android:layout_width="match_parent"
-		  android:layout_height="match_parent"
-		  android:orientation="horizontal">
-	<TextView android:id="@+id/descTextView"
-		  android:text="@string/description"
-		  android:textStyle="bold"
-		  android:layout_width="wrap_content"
-		  android:layout_height="wrap_content"
-		  android:layout_gravity="center_horizontal|center_vertical"/>
+    <TableLayout android:layout_width="match_parent" 
+		 android:layout_height="match_parent" 
+		 android:shrinkColumns="*"  android:stretchColumns="*">
+	<TableRow 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent" 
+	    android:layout_gravity="center_vertical">
+	    
+	    <TextView android:id="@+id/enterTypeTV"
+		      android:text="@string/enterType"
+		      android:textStyle="bold"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:layout_gravity="right|center_vertical"/>
+	    <RadioGroup android:id="@+id/RadioGroup01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+		<RadioButton android:text="@string/expense"
+			     android:id="@+id/expenseRadioButton"
+			     android:layout_width="wrap_content"
+			     android:layout_height="wrap_content" />
+		<RadioButton android:text="@string/income"
+			     android:id="@+id/incomeRadioButton"
+			     android:layout_width="wrap_content"
+			     android:layout_height="wrap_content" />
+	    </RadioGroup>
+	</TableRow>
 	
-	<AutoCompleteTextView android:id="@+id/descAutoCompleteTextView"
-			      android:layout_width="fill_parent"
-			      android:layout_height="wrap_content"
-			      android:layout_gravity="center_horizontal|center_vertical"
-			      android:inputType="textAutoComplete"
-			      android:maxLines="1"/>
-    </LinearLayout>
-    
-    <LinearLayout android:layout_width="match_parent"
-		  android:layout_height="match_parent"
-		  android:orientation="horizontal">
-	<TextView android:id="@+id/valueTextView"
-		  android:text="@string/enterValue"
-		  android:textStyle="bold"
-		  android:layout_width="wrap_content"
-		  android:layout_height="wrap_content"
-		  android:layout_gravity="center_horizontal|center_vertical"/>
+	<TableRow 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent" 
+	    android:layout_gravity="center_vertical">
+	    <TextView android:id="@+id/descTextView"
+		      android:text="@string/description"
+		      android:textStyle="bold"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:layout_gravity="right|center_vertical"/>
+	    <AutoCompleteTextView android:id="@+id/descAutoCompleteTextView"
+				  android:layout_width="fill_parent"
+				  android:layout_height="wrap_content"
+				  android:inputType="textAutoComplete"
+				  android:maxLines="1"/>
+	    
+	</TableRow>
 	
-	<EditText android:id="@+id/valueEditText"
-		  android:textAlignment="viewEnd"
-		  android:hint="@string/hintValueText"
-		  android:layout_width="fill_parent"
-		  android:layout_height="wrap_content"
-		  android:maxLines="1"
-		  android:inputType="numberDecimal"/>
-	
-    </LinearLayout>
+	<TableRow 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent" 
+	    android:layout_gravity="center_vertical">
+	    <TextView android:id="@+id/valueTextView"
+		      android:text="@string/enterValue"
+		      android:textStyle="bold"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:layout_gravity="right|center_vertical"/>
+	    <EditText android:id="@+id/valueEditText"
+		      android:textAlignment="viewEnd"
+		      android:hint="@string/hintValueText"
+		      android:layout_width="fill_parent"
+		      android:layout_height="wrap_content"
+		      android:maxLines="1"
+		      android:inputType="numberDecimal"/>
+	    
+	</TableRow>
+    </TableLayout>
     
     <LinearLayout android:layout_width="match_parent"
 		  android:layout_height="match_parent"

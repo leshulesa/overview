@@ -56,13 +56,13 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
 	this.m_expenseRadioButton.setChecked(true);
 	
 	TextView enterType = (TextView)dialogView.findViewById(R.id.enterTypeTV);
-	enterType.setText(enterType.getText() + ": ");
+	enterType.setText(enterType.getText() + ":");
 	TextView enterDate = (TextView)dialogView.findViewById(R.id.dateTV);
-	enterDate.setText(enterDate.getText() + ": ");
+	enterDate.setText(enterDate.getText() + ":");
 	TextView enterValue = (TextView)dialogView.findViewById(R.id.valueTextView);
-	enterValue.setText(enterValue.getText() + ": ");
+	enterValue.setText(enterValue.getText() + ":");
 	TextView descTextView = (TextView)dialogView.findViewById(R.id.descTextView);
-	descTextView.setText(descTextView.getText() + ": ");
+	descTextView.setText(descTextView.getText() + ":");
 	
 	return builder.create();
     }
