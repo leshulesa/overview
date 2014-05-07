@@ -21,5 +21,6 @@
     <string name="enterDate">Date</string>
     <string name="enterValue">Value</string>
     <string name="hintValueText">Enter value...</string>
+    <string name="description">Description</string>
     
 </resources>

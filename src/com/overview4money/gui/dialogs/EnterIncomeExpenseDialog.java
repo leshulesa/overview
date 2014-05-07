@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -60,13 +61,11 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
 	enterDate.setText(enterDate.getText() + ": ");
 	TextView enterValue = (TextView)dialogView.findViewById(R.id.valueTextView);
 	enterValue.setText(enterValue.getText() + ": ");
-	
-	ViewGroup.LayoutParams params = enterValue.getLayoutParams();
-	enterType.setLayoutParams(params);
-	enterDate.setLayoutParams(params);
+	TextView descTextView = (TextView)dialogView.findViewById(R.id.descTextView);
+	descTextView.setText(descTextView.getText() + ": ");
 	
 	return builder.create();
-    }    
+    }
     
     
     /**
