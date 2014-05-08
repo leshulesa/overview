@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import com.overview4money.R;
+import com.overview4money.appdata.MoneyRecord;
 import static com.overview4money.gui.Overview4Money.m_tag;
 
 /**
@@ -84,6 +85,10 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
 	if(this.m_okButton == v) {
 	    //**** Ok button is pressed so we should create an record. ****
 	    Log.d(m_tag, "EnterIncomeExpenseDialog.onButtonsClicked()");
+	    double value = Double.parseDouble(this.m_valueEditText.getEditableText().toString());
+	    String description = this.m_descriptionAutoTextView.getEditableText().toString();
+	    MoneyRecord.RecordType type = this.m_incomeRadioButton.isSelected() ? MoneyRecord.RecordType.M_INCOME : MoneyRecord.RecordType.M_EXPENSE;
+	    MoneyRecord record = new MoneyRecord(this.m_datePicker.getYear(), this.m_datePicker.getMonth(), this.m_datePicker.getDayOfMonth(), value, description, type);
 	    this.getDialog().cancel();
 	}
 	else if(this.m_backButton == v) {
