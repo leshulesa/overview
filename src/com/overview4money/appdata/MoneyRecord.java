@@ -9,13 +9,12 @@ package com.overview4money.appdata;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 /**
  * 
  * @author Zordan
  */
-public class MoneyRecord {
+public class MoneyRecord implements Comparable<MoneyRecord> {
     //**** CLASS METHODS. ****
     public MoneyRecord(int year, int month, int day, double value, String description, RecordType type) {
 	//**** Get the current UTC time. ****
@@ -24,7 +23,7 @@ public class MoneyRecord {
 	Calendar recordCalendar = new GregorianCalendar();
 	recordCalendar.setTimeInMillis(cal.getTimeInMillis());
 	recordCalendar.set(Calendar.YEAR, year);
-	recordCalendar.set(Calendar.MONTH, month);
+	recordCalendar.set(Calendar.MONTH, month - 1);
 	recordCalendar.set(Calendar.DAY_OF_MONTH, day);
 	this.m_dateTime = recordCalendar.getTime();
 	
@@ -33,15 +32,9 @@ public class MoneyRecord {
 	this.m_recordType = type;
 	//**** Save current value. ****
 	this.m_currentValue = value;
-	//**** Read previous state based on the position of this new money record from the date time. ****
-	this.m_state = 30000.0;
-	//**** Calculate the state of this money record.
-	if(this.m_recordType == RecordType.M_EXPENSE) {
-	    this.m_state -= this.m_currentValue;
-	}
-	else {
-	    this.m_state += this.m_currentValue;
-	}
+	
+	//**** State will be update after record is added to the global list.
+	this.m_state = Double.NaN;
     }
     
     
@@ -62,6 +55,43 @@ public class MoneyRecord {
     }
     
     public double getState() {
+	return this.m_state;
+    }
+    
+    
+    /**
+     * Method initializes money record object properly by adding it in global list.
+     * @return Reference on this money record object.
+     */
+    public MoneyRecord init() {
+	OverviewMoneyManager.getInstance().add(this);
+	return this;
+    }
+
+    
+    @Override public int compareTo(MoneyRecord another) {
+	if(this.m_dateTime.getTime() < another.m_dateTime.getTime()) {
+	    return -1;
+	}
+	else if(this.m_dateTime.getTime() > another.m_dateTime.getTime()) {
+	    return 1;
+	}
+	return 0;
+    }
+    
+    /**
+     * Called by the manager when new record is added to the list. Method should update new record state value and to return new value.
+     * @param previousState State value from some previous record.
+     * @return The new calculated state value.
+     */
+    public double onRecordUpdate(double previousState) {
+	this.m_state = previousState;
+	if(this.m_recordType == RecordType.M_EXPENSE) {
+	    this.m_state -= this.m_currentValue;
+	}
+	else {
+	    this.m_state += this.m_currentValue;
+	}
 	return this.m_state;
     }
     

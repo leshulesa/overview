@@ -13,8 +13,6 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -88,7 +86,8 @@ public class EnterIncomeExpenseDialog extends DialogFragment {
 	    double value = Double.parseDouble(this.m_valueEditText.getEditableText().toString());
 	    String description = this.m_descriptionAutoTextView.getEditableText().toString();
 	    MoneyRecord.RecordType type = this.m_incomeRadioButton.isSelected() ? MoneyRecord.RecordType.M_INCOME : MoneyRecord.RecordType.M_EXPENSE;
-	    MoneyRecord record = new MoneyRecord(this.m_datePicker.getYear(), this.m_datePicker.getMonth(), this.m_datePicker.getDayOfMonth(), value, description, type);
+	    MoneyRecord record = new MoneyRecord(this.m_datePicker.getYear(), this.m_datePicker.getMonth() + 1, this.m_datePicker.getDayOfMonth(), value, description, type);
+	    record.init();
 	    this.getDialog().cancel();
 	}
 	else if(this.m_backButton == v) {
