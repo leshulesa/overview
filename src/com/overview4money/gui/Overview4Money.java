@@ -1,5 +1,6 @@
 package com.overview4money.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -60,6 +61,7 @@ public class Overview4Money extends FragmentActivity {
 	}
 	else if(this.m_moneyOverviewButton == v) {
 	    Log.i(m_tag, "onButtonsClicked() - Money overview button");
+	    this.openDailyIncomeExpenseTableActivity();
 	}
     }
     
@@ -68,6 +70,10 @@ public class Overview4Money extends FragmentActivity {
 	Log.d(m_tag, "openIncomeExpenseDialog()");
 	EnterIncomeExpenseDialog enterDialog = new EnterIncomeExpenseDialog();
 	enterDialog.show(this.getSupportFragmentManager(), "EnterIncomeExpenseDialog");
+    }
+    
+    protected void openDailyIncomeExpenseTableActivity() {
+	this.startActivity(new Intent(this, DailyIncomeExpenseActivity.class));
     }
 
     
