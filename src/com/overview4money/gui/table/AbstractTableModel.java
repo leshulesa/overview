@@ -14,7 +14,9 @@ package com.overview4money.gui.table;
 public abstract class AbstractTableModel implements TableModel {
     //**** CLASS METHODS. ****
     protected AbstractTableModel() {
-	this.m_columnNames = null;
+	//**** Create empty arrays. ****
+	this.m_columnNames = new String[0];
+	this.m_columnTypes = new Class[0];
     }
     
     protected AbstractTableModel(String columnNames[]) {

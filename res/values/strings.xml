@@ -8,6 +8,7 @@
     
     <string name="ok">Ok</string>
     <string name="back">Back</string>
+    <string name="state">State</string>
     
     <!-- Text values for main menu buttons. -->
     <string name="enterincexp">Enter Income/Expense</string>
@@ -22,5 +23,13 @@
     <string name="enterValue">Value</string>
     <string name="hintValueText">Enter value...</string>
     <string name="description">Description</string>
+    
+    <!-- Daily income expense table columns. -->
+    <string-array name = "dailyIncomeExpenseColumns">
+	<item>@string/enterDate</item>
+	<item>@string/income</item>
+	<item>@string/expense</item>
+	<item>@string/state</item>
+    </string-array>
     
 </resources>

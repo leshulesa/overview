@@ -10,7 +10,20 @@ and open the template in the editor.
 	      android:layout_height="match_parent"
 	      android:orientation="vertical"
 >
-    <com.overview4money.gui.table.AndroidTable
+    <!-- Table header. -->
+    <com.overview4money.gui.table.AndroidTableHeader
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"/>
+	android:layout_height="wrap_content"
+	android:id="@+id/dailyincomeheader"/>
+    
+    <!-- Table will be put inside scroll view. -->
+    <ScrollView
+	android:layout_width="match_parent"
+	android:layout_height="fill_parent"
+	android:fillViewport="true">
+	<com.overview4money.gui.table.AndroidTable
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/dailyincometable"/>
+    </ScrollView>
 </LinearLayout>

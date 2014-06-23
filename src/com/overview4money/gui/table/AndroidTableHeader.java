@@ -16,17 +16,17 @@ import android.view.View;
  *
  * @author Zordan
  */
-public class AndroidTable extends View {
+public class AndroidTableHeader extends View {
     //**** CLASS METHODS. ****
-    public AndroidTable(Context context) {
+    public AndroidTableHeader(Context context) {
 	super(context);
     }
     
-    public AndroidTable(Context context, AttributeSet attrs) {
+    public AndroidTableHeader(Context context, AttributeSet attrs) {
 	super(context, attrs);
     }
     
-    public AndroidTable(Context context, AttributeSet attrs, int defStyle) {
+    public AndroidTableHeader(Context context, AttributeSet attrs, int defStyle) {
 	super(context, attrs, defStyle);
     }
     
@@ -35,25 +35,14 @@ public class AndroidTable extends View {
 	return this.m_tableModel;
     }
     
-    public AndroidTableHeader getTableHeader() {
-	return this.m_tableHeader;
-    }
     
-    
-    public void setTableModel(TableModel newTableModel) {
-	this.m_tableModel = newTableModel;
-	if(this.m_tableHeader != null) {
-	    //**** Notify header about new table model only if table header is previously set. ****
-	    this.m_tableHeader.setTableModel(this.m_tableModel);
-	}
-    }
-    
-    public void setTableHeader(AndroidTableHeader tableHeader) {
-	this.m_tableHeader = tableHeader;
-	//*** Tell header about new table model. ****
-	if(this.m_tableHeader != null) {
-	    this.m_tableHeader.setTableModel(this.m_tableModel);
-	}
+    /**
+     * Android table will use this method to specify new table model for this header. It will not be used outside, it will only be
+     * used by the android table object. New table model will be specified when header is added to the table or when new model is specified for table.
+     * @param tableModel Table mode.
+     */
+    protected void setTableModel(TableModel tableModel) {
+	this.m_tableModel = tableModel;
     }
     
     
@@ -80,7 +69,8 @@ public class AndroidTable extends View {
     
     /** Same as mesureWidth() method. */
     private int measureHeight(int measureSpec) {
-	return MeasureSpec.getSize(measureSpec);
+//	return MeasureSpec.getSize(measureSpec);
+	return 100;
     }
     
     
@@ -90,13 +80,17 @@ public class AndroidTable extends View {
      * @param canvas For drawings, something like Graphics in real Java.
      */
     @Override protected void onDraw(Canvas canvas) {
-	Paint nesto = new Paint();
-	nesto.setColor(0xFFFF00FF);
-	canvas.drawRect(0f, 0f, this.getWidth(), this.getHeight(), nesto);
-	
-	Paint tPaint = new Paint();
-	tPaint.setTextSize(30);
-	canvas.drawText("Dijanica", 100, 300, tPaint);
+	canvas.drawText("Dijanica", 10, 10, new Paint());
+	canvas.drawRect(0f, 0f, this.getWidth(), this.getHeight(), new Paint());
+	if(this.m_tableModel == null) return;
+	Paint textPaint = new Paint();
+	textPaint.setColor(0xFFFF0000);
+	textPaint.setTextSize(30);
+	int columnsCount = this.m_tableModel.getColumnsCount();
+	String columnNames[] = this.m_tableModel.getColumnNames();
+	for(int i = 0; i < columnsCount; i++) {
+	    canvas.drawText(columnNames[i], 10 + 100*i, 30, textPaint);
+	}
 //	//**** Create rotation matrix around the button center. ****
 //	this.mMatrix.setRotate(mRotate, this.getMeasuredWidth()/2, this.getMeasuredHeight()/2);
 //	this.mShader.setLocalMatrix(mMatrix);
@@ -131,10 +125,7 @@ public class AndroidTable extends View {
     
     //**** CLASS ATTRIBUTES. ****
     //------------------------------------------------------------------------------------------------------------------------------------------------
-    /** Variable represents model for this table. Model will hold all necessary data for table. Number of columns, column names, column types.
-     Number of rows. Probably header widths and rows heights will be stored inside this table model. */
+    /** Table model holding the data and information about columns. It will be set when header is added to some table or when new model is
+     set for some android table. */
     private TableModel m_tableModel;
-    
-    /** Variable represents header for this table. At the table creation it is null, so table does not have any header, must be set. */
-    private AndroidTableHeader m_tableHeader;
 }
