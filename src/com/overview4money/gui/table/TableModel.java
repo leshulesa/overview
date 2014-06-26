@@ -44,4 +44,10 @@ public interface TableModel {
      * @return Class type of entire column.
      */
     public Class getColumnType(int column);
+    
+    /**
+     * Method returns column widths.
+     * @return New double array.
+     */
+    public float[] getColumnWidths();
 }

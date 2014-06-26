@@ -31,7 +31,6 @@ public class DailyIncomeExpenseActivity extends FragmentActivity {
 	//**** Create table model special for this type of activity. ****
 	String columns[] = this.getResources().getStringArray(R.array.dailyIncomeExpenseColumns);
 	AbstractTableModel tableModel = new AbstractTableModel(columns) {
-	    
 	    public int getRowCount() {
 		return 0;
 	    }
