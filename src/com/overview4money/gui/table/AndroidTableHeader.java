@@ -9,6 +9,7 @@ package com.overview4money.gui.table;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -61,16 +62,17 @@ public class AndroidTableHeader extends View {
      * Header initialization method.
      */
     private void initTableHeader() {
+	float scaledDensity = this.getResources().getDisplayMetrics().scaledDensity;
+	
 	//**** Create unique paint for all headers in table. ****
-	this.m_headerPaint = new Paint();
+	this.m_headerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	this.m_headerPaint.setARGB(255, 0, 0, 0);
-	this.m_headerPaint.setStrokeWidth(6.0f);
+	this.m_headerPaint.setStrokeWidth(3.0f*scaledDensity);
 	this.m_headerPaint.setStyle(Paint.Style.STROKE);
 	//**** Create unique paint for all header's text. ****
-	this.m_headerTextPaint = new TextPaint();
+	this.m_headerTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.LINEAR_TEXT_FLAG);
 	this.m_headerTextPaint.setARGB(255, 0, 0, 0);
-	this.m_headerTextPaint.setTextSize(30);
-	
+	this.m_headerTextPaint.setTextSize(20f*scaledDensity);
 	
 	//**** List of headers will be currently empty. ****
 	this.m_headers = new LinkedList<Header>();
@@ -88,20 +90,19 @@ public class AndroidTableHeader extends View {
 	//**** Now we can create new headers. ****
 	float columnWidths[] = this.m_tableModel.getColumnWidths();
 	String columnNames[] = this.m_tableModel.getColumnNames();
-	final float DISP = 5.0f;
 	int width = this.getWidth();
 	int height = this.getHeight();
 	float widthSum = 0.0f;
-	float top = 0.0f + DISP;
-	float bottom = height - DISP;
+	float top = 0.0f;
+	float bottom = height;
 	for(int i = 0; i < columnWidths.length; i++) {
 	    //**** Left is zero at the beginning or previous width sum. ****
-	    float left = i == 0 ? 0.0f + DISP : widthSum + DISP;
+	    float left = i == 0 ? 0.0f : widthSum;
 	    widthSum += columnWidths[i]*width;
 	    //**** Right is the current width sum. ****
-	    float right = widthSum - DISP;
+	    float right = widthSum;
 	    //**** Add header to the list. ****
-	    this.m_headers.add(new Header(columnNames[i], i, left, right, top, bottom));
+	    this.m_headers.add(new Header(columnNames[i], i, left, right, top, bottom).init());
 	}
     }
     
@@ -141,9 +142,8 @@ public class AndroidTableHeader extends View {
     }
     
     /** Same as mesureWidth() method. */
-    private int measureHeight(int measureSpec) {
-//	return MeasureSpec.getSize(measureSpec);
-	return 100;
+    private int measureHeight(int measureSpec) {	
+	return (int)(60*this.getResources().getDisplayMetrics().scaledDensity);
     }
     
     
@@ -191,7 +191,7 @@ public class AndroidTableHeader extends View {
      */
     private void drawHeaders(Canvas canvas) {
 	for(Header header : this.m_headers) {
-	    header.onDraw(canvas, this.m_headerPaint, this.m_headerTextPaint);
+	    header.onDraw(canvas);
 	}
     }
     
@@ -207,18 +207,50 @@ public class AndroidTableHeader extends View {
 	    this.m_right = right;
 	    this.m_top = top;
 	    this.m_bottom = bottom;
+	    
+	    this.m_headerValueForDraw = this.m_headerValue;
+	    this.m_textXPos = this.m_left;
+	    this.m_textYPos = this.m_top;
+	}
+	
+	
+	/**
+	 * Header initialization function.
+	 * @return Returns reference on this.
+	 */
+	public Header init() {
+	    this.updateHeaderView();
+	    return this;
 	}
 	
 	
 	/**
 	 * Method draws this header object on the android table header.
 	 * @param canvas Canvas used for drawings.
-	 * @param headerPaint Special header paint used for drawings.
-	 * @param headerTextPaint Paint for header text.
 	 */
-	public void onDraw(Canvas canvas, Paint headerPaint, Paint headerTextPaint) {
-	    canvas.drawRect(this.m_left, this.m_top, this.m_right, this.m_bottom, headerPaint);
-	    canvas.drawText(this.m_headerValue, this.m_left + 10.0f, this.m_bottom - 10.0f, headerTextPaint);
+	public void onDraw(Canvas canvas) {
+	    float disp = 5.0f;
+	    canvas.drawRect(this.m_left + disp, this.m_top + disp, this.m_right - disp, this.m_bottom - disp, m_headerPaint);
+	    canvas.drawText(this.m_headerValueForDraw, this.m_textXPos, this.m_textYPos, m_headerTextPaint);
+	}
+	
+	/**
+	 * Method updates header's view such as text position and size of the text.
+	 */
+	protected void updateHeaderView() {
+	    float maxWidth = this.m_right - this.m_left;
+	    float height = this.m_bottom - this.m_top;
+	    float newTextWidth[] = new float[1];
+	    int numOfChars = m_headerTextPaint.breakText(this.m_headerValue, true, maxWidth, newTextWidth);
+	    if(numOfChars < this.m_headerValue.length()) {
+		this.m_headerValueForDraw = this.m_headerValue.substring(0, numOfChars - 3).concat("...");
+	    }
+	    else this.m_headerValueForDraw = this.m_headerValue;
+	    
+	    Rect bounds = new Rect();
+	    m_headerTextPaint.getTextBounds(this.m_headerValueForDraw, 0, this.m_headerValueForDraw.length(), bounds);
+	    this.m_textXPos = this.m_left + maxWidth*0.5f - bounds.exactCenterX();
+	    this.m_textYPos = 0.5f*height - bounds.exactCenterY();
 	}
 	
 	
@@ -227,11 +259,17 @@ public class AndroidTableHeader extends View {
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	/** Header index or position. */
 	private int m_index;
-	/** Header string value which must be drawn. */
-	private String m_headerValue;
 	/** Used for rectangle drawings. */
 	private float m_left, m_right;
 	private float m_top, m_bottom;
+	
+	//--------------------------------------------------------------------------------------------------------------------------------------------
+	/** Header string value which must be drawn. */
+	private String m_headerValue;
+	/** Header value which will be used for drawing. For example if header string is to long "Income Money" header value for draw will be "Income Mo...". */
+	private String m_headerValueForDraw;
+	/** Calculated text X and Y position. Header text will be positioned at the header's center. */
+	private float m_textXPos, m_textYPos;
     }
     
     
