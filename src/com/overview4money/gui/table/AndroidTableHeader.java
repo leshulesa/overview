@@ -289,6 +289,6 @@ public class AndroidTableHeader extends View {
     private Paint m_headerPaint;
     /** Paint used for header text. */
     private TextPaint m_headerTextPaint;
-    /** List of headers. Empty at the beginning, but when new model is specified, headers will be created. */
+    /** List of headers. Empty at the beginning, but when new model is specified, headers will be created and updated. */
     private List<Header> m_headers;
 }
