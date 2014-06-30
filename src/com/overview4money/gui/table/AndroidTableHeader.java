@@ -238,18 +238,22 @@ public class AndroidTableHeader extends View {
 	 * Method updates header's view such as text position and size of the text.
 	 */
 	protected void updateHeaderView() {
-	    float maxWidth = this.m_right - this.m_left;
+	    //**** This is the current width and height of this header. ****
+	    float width = this.m_right - this.m_left;
 	    float height = this.m_bottom - this.m_top;
+	    //**** Based on the hader text and header width calculates the text width and number of characters that can be put within the header's width. ****
 	    float newTextWidth[] = new float[1];
-	    int numOfChars = m_headerTextPaint.breakText(this.m_headerValue, true, maxWidth, newTextWidth);
+	    int numOfChars = m_headerTextPaint.breakText(this.m_headerValue, true, width, newTextWidth);
+	    //**** If number of available characters are less then header text length we will add three dots. ****
 	    if(numOfChars < this.m_headerValue.length()) {
 		this.m_headerValueForDraw = this.m_headerValue.substring(0, numOfChars - 3).concat("...");
 	    }
 	    else this.m_headerValueForDraw = this.m_headerValue;
 	    
+	    //**** Based on the header's left, width and height value and text bounds value we calculates text X and Y positions for this header. ****
 	    Rect bounds = new Rect();
 	    m_headerTextPaint.getTextBounds(this.m_headerValueForDraw, 0, this.m_headerValueForDraw.length(), bounds);
-	    this.m_textXPos = this.m_left + maxWidth*0.5f - bounds.exactCenterX();
+	    this.m_textXPos = this.m_left + width*0.5f - bounds.exactCenterX();
 	    this.m_textYPos = 0.5f*height - bounds.exactCenterY();
 	}
 	
